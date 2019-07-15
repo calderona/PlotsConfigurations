@@ -9,7 +9,7 @@
 nuisances['lumi']  = {
                'name'  : 'lumi_13TeV',
                'samples'  : {
-                   'DY'       : '1.023',
+                   #'DY'       : '1.023',
                    #'top'      : '1.023',    | These 3 backgrounds are data driven, no need to include the luminosity uncertainty
                    'WW'       : '1.023',    
                    'ggWW'     : '1.023',
