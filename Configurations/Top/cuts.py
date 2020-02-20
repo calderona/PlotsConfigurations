@@ -1,11 +1,90 @@
-# cuts
-
-#cuts = {}
-    
-
-#cuts['TopCtrl0jets'] = '(std_vector_lepton_flavour[0] * std_vector_lepton_flavour[1] == -11*13) &&  std_vector_lepton_pt[0]>20 && std_vector_lepton_pt[1]>15 && std_vector_lepton_pt[2]<10 && mll>50 && (std_vector_jet_csvv2ivf[0]>0.605 || std_vector_jet_csvv2ivf[1]>0.605 || std_vector_jet_csvv2ivf[2]>0.605 || std_vector_jet_csvv2ivf[3]>0.605 || std_vector_jet_csvv2ivf[4]>0.605 || std_vector_jet_csvv2ivf[5]>0.605 || std_vector_jet_csvv2ivf[6]>0.605 || std_vector_jet_csvv2ivf[7]>0.605 || std_vector_jet_csvv2ivf[8]>0.605 || std_vector_jet_csvv2ivf[9]>0.605 ) && njet==0 && ptll>45 && ppfMet>20'
+ # VH2j cuts
 
 
-cuts['TopCtrlge2jets'] = '(std_vector_lepton_flavour[0] * std_vector_lepton_flavour[1] == -11*13) &&  std_vector_lepton_pt[0]>20 && std_vector_lepton_pt[1]>15 && std_vector_lepton_pt[2]<10 && mll>50 && (std_vector_jet_csvv2ivf[0]>0.605 || std_vector_jet_csvv2ivf[1]>0.605) && ptll>45 && ppfMet>20 && njet>1'
+#-------------------------------------------------------------------------------
+# supercut
+#-------------------------------------------------------------------------------
+_tmp = [
+     'Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
+     'Lepton_pt[0] > 25.',
+     'Lepton_pt[1] > 10.',
+     '(abs(Lepton_pdgId[1]) == 13 || Lepton_pt[1] > 13.)',
+     '(nLepton >= 2 && Alt$(Lepton_pt[2], 0) < 10.)',
+     'mll > 12.',
+     'ptll > 30.',
+     'PuppiMET_pt > 20.', 
+     ]
 
-#cuts['TopCtrlge2jet'] = '(std_vector_lepton_flavour[0] * std_vector_lepton_flavour[1] == -11*13) &&  std_vector_lepton_pt[0]>20 && std_vector_lepton_pt[1]>15 && std_vector_lepton_pt[2]<10 && mll>12 && (std_vector_jet_csvv2ivf[0]>0.89 && std_vector_jet_csvv2ivf[1]>0.89) && ptll>45 && ppfMet>20 && njet>1'
+supercut = ' && '.join(_tmp)
+
+
+def addcut(name, exprs):
+    cuts[name] = ' && '.join(exprs)
+
+
+#-------------------------------------------------------------------------------
+# VH_2j_em
+#-------------------------------------------------------------------------------
+_tmp = [
+     'Alt$(CleanJet_pt[1], 0) > 30.', 
+     'abs(CleanJet_eta[0]) < 2.5',
+     'abs(CleanJet_eta[1]) < 2.5',
+     'mth > 60.',
+     'mth < 125.',
+     'drll < 2.',
+     'mjj > 65.',
+     'mjj < 105.',
+     'detajj < 3.5',
+     'bVeto',
+     #'Jet_qgl[CleanJet_jetIdx[0]] > 0.4',
+     #'Jet_qgl[CleanJet_jetIdx[1]] > 0.3',
+     ]
+
+addcut('VH_2j_emu', _tmp)
+
+
+#-------------------------------------------------------------------------------
+# VH_2j_topemu
+#-------------------------------------------------------------------------------
+_tmp = [
+     'Alt$(CleanJet_pt[1], 0) > 30.',  
+     'abs(CleanJet_eta[0]) < 2.5',
+     'abs(CleanJet_eta[1]) < 2.5',
+     'mjj > 65.',
+     'mjj < 105.',
+     'detajj < 3.5', 
+     'bReq',
+     'mll > 50.',
+     ]
+
+addcut('VH_2j_topemu', _tmp)
+
+
+#-------------------------------------------------------------------------------
+# VH_2j_DYtautau
+#-------------------------------------------------------------------------------
+_tmp = [
+     'Alt$(CleanJet_pt[1], 0) > 30.',  
+     'abs(CleanJet_eta[0]) < 2.5',
+     'abs(CleanJet_eta[1]) < 2.5',
+     'mth < 60.',
+     'drll < 2.',
+     'bVetoDY',
+     'mjj > 65.',
+     'mjj < 105.',
+     'detajj < 3.5',
+     'mll > 40.',
+     'mll < 80.',
+     ]
+
+addcut('VH_2j_DYtautau', _tmp)
+
+
+#-------------------------------------------------------------------------------
+# Test
+#-------------------------------------------------------------------------------
+### _tmp = [
+###      'VH2j_TMVAReader(Entry$) > 0.1',
+###      ]
+### 
+### addcut('VH_2j_test', _tmp);

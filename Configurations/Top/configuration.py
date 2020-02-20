@@ -1,9 +1,14 @@
-# example of configuration file
+# VH2j configuration file
 
-tag = 'TopNoSF'
+treeName = 'Events'
 
+tag = 'VH2j_2016'
+
+# used by mkShape to define output directory for root files
 outputDir = 'rootFile'
 
+# file with TTree aliases
+aliasesFile = 'aliases.py'
 
 # file with list of variables
 variablesFile = 'variables.py'
@@ -12,32 +17,23 @@ variablesFile = 'variables.py'
 cutsFile = 'cuts.py' 
 
 # file with list of samples
-samplesFile = 'samples_noSF.py' 
+samplesFile = 'samples.py' 
 
-# file with list of samples
+# file with plot configuration
 plotFile = 'plot.py' 
 
-
-
 # luminosity to normalize to (in 1/fb)
-lumi = 1.27
-#lumi = 0.040
-# 40053803.220 /ub
+lumi = 35.867
 
 # used by mkPlot to define output directory for plots
 # different from "outputDir" to do things more tidy
-outputDirPlots = 'plotTopNoSF'
-
+outputDirPlots = 'plotVH2j_2016'
 
 # used by mkDatacards to define output directory for datacards
 outputDirDatacard = 'datacards'
 
-
 # structure file for datacard
 structureFile = 'structure.py'
 
-
 # nuisances file for mkDatacards and for mkShape
 nuisancesFile = 'nuisances.py'
-
-
